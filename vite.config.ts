@@ -1,14 +1,28 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import path from 'path';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    },
+  },
   esbuild: {
-    tsconfig: './tsconfig.json', // Force Vite to use this tsconfig
+    // Explicitly point to your existing tsconfig.json
+    tsconfig: path.resolve(__dirname, 'tsconfig.json'),
   },
   build: {
-    outDir: 'dist', // optional, default is 'dist'
-    sourcemap: false, // optional, can enable if needed
+    outDir: 'dist',
+    sourcemap: false,
+  },
+  optimizeDeps: {
+    esbuildOptions: {
+      // Prevent Vite from trying to load tsconfig.node.json
+      tsconfigRaw: {
+        extends: './tsconfig.json',
+      },
+    },
   },
 });
