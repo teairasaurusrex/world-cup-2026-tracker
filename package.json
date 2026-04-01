@@ -2,7 +2,6 @@
   "name": "world-cup-2026-tracker",
   "private": true,
   "version": "0.1.0",
-  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
